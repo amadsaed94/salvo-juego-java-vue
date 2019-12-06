@@ -95,9 +95,7 @@ function fire(){
 
         let location = $(this).attr("id").substring(2);
 
-        let locationConverted = String.fromCharCode(parseInt(location[0]) + 65) + (parseInt(location[1]) + 1)
-
-        locations.push(locationConverted);
+        locations.push(location);
     })
 
 //jquery para pasar la informacion al servidor
@@ -105,7 +103,7 @@ function fire(){
     var url = "/api/games/players/" + getParameterByName("gp") + "/salvos"
     $.post({
         url: url,
-        data: JSON.stringify({ salvoLocations:locations}),
+        data: JSON.stringify(locations),
         dataType: "text",
         contentType: "application/json"
     })

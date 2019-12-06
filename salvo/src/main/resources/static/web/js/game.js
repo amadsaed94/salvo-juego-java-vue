@@ -107,13 +107,25 @@ function fire(){
         dataType: "text",
         contentType: "application/json"
     })
-    .done(function (response, status, jqXHR) {
-        alert( "Salvo added: " + response );
-        location.reload();
+    .done(function () {
+        Swal.fire({
+                              title: 'salvos added !',
+                              showCancelButton: false,
+                              confirmButtonColor: '#3085d6',
+                              cancelButtonColor: '#d33',
+                              confirmButtonText: 'OK'
+                            }).then((result) => {
+                             location.reload();
+
+                            })
     })
     .fail(function (jqXHR, status, httpError){
         alert("Failed to add salvo: " + status + " " + httpError);
     })
+    }
+    function volver(){
+
+        window.location.href = '/web/games.html';
     }
 
 

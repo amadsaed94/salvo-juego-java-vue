@@ -5,21 +5,33 @@
   <title>Ships locations!</title>
   <link rel="stylesheet" type="text/css" href="css/game.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.css">
 </head>
-<body>
+<body style="background-image: url('https://wallpaperaccess.com/full/948963.jpg');">
     <div class="container">
       <br><br>
-      <div style="font-size: 30px;  text-align: center; color: blue ">
+      <div style="font-size: 30px;  text-align: center; color: white ">
 
           <span id="playerInfo"></span>
       </div>
+      <br><br>
+        <div class="row">
+            <div class="col" >
+                <button  class="btn btn-primary btn-lg " onclick="volver()" >Go back  !</button>
+            </div>
+            <div class="col">
+                <button style="margin-left:80%" class="btn btn-danger btn-lg " onclick="fire()" >FIRE !</button>
+            </div>
+        </div>
+
       <br><br>
       <div class="row">
         <div class="col">
           <section>
 
-            <h2>Game Board</h2>
-            <table class="table table-bordered">
+            <h2 style="color: white">Game Board</h2>
+            <table class="table table-bordered" style="background-color: grey">
               <thead>
                 <th></th>
                 <th id="bth_0">1</th><th id="bth_1">2</th><th id="bth_2">3</th><th id="bth_3">4</th><th id="bth_4">5</th>
@@ -85,8 +97,8 @@
         <div class="col">
           <section>
 
-            <h2>Salvo board</h2>
-            <table class="table table-bordered">
+            <h2 style="color: white">Salvo board</h2>
+            <table class="table table-bordered" style="background-color: grey">
               <thead>
                 <th></th>
                 <th id="th_0">1</th><th id="th_1">2</th><th id="th_2">3</th><th id="th_3">4</th><th id="th_4">5</th>
@@ -150,8 +162,6 @@
         </div>
 
       </div>
-
-      <button  class="btn btn-success" onclick="fire()" >hit !</button>
 
     </div>
 
