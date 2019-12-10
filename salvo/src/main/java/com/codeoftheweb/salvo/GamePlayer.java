@@ -71,4 +71,11 @@ public class GamePlayer {
         dto.put("player", this.getPlayer().getPlayerDTO());
         return dto;
     }
+    public GamePlayer getOpponent (){
+        return this.getGame().getGamePlayers()
+                .stream().filter(gamePlayer -> gamePlayer.getId() != this.getId())
+                .findFirst()
+                .orElse(null);
+
+    }
 }

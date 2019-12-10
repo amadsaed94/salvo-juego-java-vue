@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Salvo {
@@ -47,11 +48,57 @@ public class Salvo {
     return salvoLocations;
   }
 
+
+  public List<String> Hits (List<String> myShots , Set<Ship> enemyShips){
+
+    List<String>  Enemy = new ArrayList<>();
+
+    enemyShips.forEach(Ship ->Enemy.addAll(Ship.getShipLocations()));
+
+    return myShots
+            .stream()
+            .filter(shot ->Enemy
+                    .stream()
+                    .anyMatch(loc-> loc.equals(shot)))
+            .collect(Collectors.toList());
+
+  }
+
+  public  List<Ship> getSunk (Set<Salvo> mySalvos, Set<Ship> opponentShips){
+
+    List<String> allShots = new ArrayList<>();
+
+    mySalvos.forEach(salvo -> allShots.addAll(salvo.getSalvoLocations()));
+
+    return opponentShips
+            .stream()
+            .filter(ship -> allShots.containsAll(ship.getShipLocations()))
+            .collect(Collectors.toList());
+
+  }
+
   public Map<String,Object> makesalvoDTO(){
     Map<String, Object> dto = new LinkedHashMap<>();
     dto.put("turn", this.getTurn());
     dto.put("salvoLocations", this.getSalvoLocations());
     dto.put("player", this.getGamePlayer().getPlayer().getId());
+
+    GamePlayer Opponent = this.gamePlayer.getOpponent();
+
+    if( Opponent != null){
+      Set<Ship> enemyShips = Opponent.getShips();
+      dto.put("hits", this.Hits(this.getSalvoLocations(), enemyShips));
+      Set <Salvo> MySalvos = this.gamePlayer
+              .getSalvoes()
+              .stream()
+              .filter(salvo -> salvo.getTurn() <= this.getTurn())
+              .collect(Collectors.toSet());
+
+      dto.put("suncken", this.getSunk ( MySalvos , enemyShips).stream().map(Ship::makeshipDTO));
+
+    }
+
     return dto;
   }
+
 }

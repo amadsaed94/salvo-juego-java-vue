@@ -62,9 +62,18 @@ console.log(ships);
    dataType: "text",
    contentType: "application/json"
  })
- .done(function (response, status, jqXHR) {
-   alert( "ship added: " + response );
-   window.location.href = '/web/game.html?gp='+getParameterByName('gp');//
+ .done(function () {
+   Swal.fire({
+                         title: 'ships added !',
+                         showCancelButton: false,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#d33',
+                         confirmButtonText: 'OK'
+                       }).then((result) => {
+                        window.location.href = '/web/game.html?gp='+getParameterByName('gp');
+
+                       })
+
 
  })
 }
