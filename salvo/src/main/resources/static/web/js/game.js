@@ -9,6 +9,7 @@ function loadData() {
   $.get('/api/game_view/' + getParameterByName('gp'))
     .done(function (data) {
 
+
       var playerInfo;
       if (data.gamePlayers.length>1){
            if (data.gamePlayers[0].id == getParameterByName('gp'))
@@ -20,19 +21,24 @@ function loadData() {
       else{
             playerInfo=[data.gamePlayers[0].player]
            $('#playerInfo').text(playerInfo[0].email + '(you) vs ' + "waiting for other player..");
-      }
+          }
+
+
 
       data.ships.forEach(function (shipPiece) {
         shipPiece.shipLocations.forEach(function (shipLocation) {
           let turnHitted = isHit(shipLocation,data.salvoes,playerInfo[0].id)
           if(turnHitted >0){
-            $('#B_' + shipLocation).addClass('ship-piece-hited');
+          $('#B_' + shipLocation).addClass(shipPiece.shipType);
+           // $('#B_' + shipLocation).addClass('ship-piece-hited');
             $('#B_' + shipLocation).text(turnHitted);
           }
           else
-            $('#B_' + shipLocation).addClass('ship-piece');
+            $('#B_' + shipLocation).addClass(shipPiece.shipType);
         });
       });
+
+
       data.salvoes.forEach(function (salvo) {
         console.log(salvo);
         if (playerInfo[0].id === salvo.player) {
@@ -45,6 +51,26 @@ function loadData() {
           });
         }
       });
+
+
+
+        //Filtrado para player 1
+        var email1 = data.gamePlayers[0].player.email;
+        var filtrado_1 = data.salvoes.filter(function(salvo) {
+          return salvo.player == email1;
+        });
+        apppp.Myrecords = filtrado_1;
+
+
+        //Filtrado para player 2
+        var email2 = data.gamePlayers[1].player.email;
+        var filtrado_2 = data.salvoes.filter(function(salvo) {
+           return salvo.player == email2;
+        });
+        apppp.Opprecords = filtrado_2;
+
+
+
     })
     .fail(function (jqXHR, textStatus) {
       alert('Failed: ' + textStatus);
@@ -129,5 +155,15 @@ function fire(){
     }
 
 
+
+
+// VUE
+var apppp = new Vue({
+    el:"#apppp",
+    data:{
+  Myrecords: [],
+  Opprecords: []
+    }
+ })
 
 

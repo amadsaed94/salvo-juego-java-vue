@@ -56,10 +56,10 @@
     </div>
 
     <div v-if="user =='Guest'">
-        <label >Name:</label>
+        <label ><h3>Name:</h3></label>
         <input class="form-control" v-model="username" id="username"type="email" name="username" required>
      <br>
-        <label>Password: </label>
+        <label><h3>Password:</h3> </label>
         <input class="form-control" v-model="password" id="password"type="password" name="password" required>
      <br>
         <input type="button" class="form-control btn btn-info btn-light" @click="login(1)" value="Login">

@@ -1,18 +1,31 @@
 body{
  background-image: url("https://wallpaperaccess.com/full/948963.jpg");
 }
-
-.ship-piece{
-    background-color: darkslateblue;
-}
-
 .ship-piece-hited{
-    background-color: darkmagenta;
+    background-color: yellow;
 }
 
+}
 .salvo{
-    background-color: crimson;
+    background-color: green;
 }
 .target{
 background-color: red ;
+}
+
+
+.destroyer{
+background-color: blue;
+}
+.submarine{
+background-color: black;
+}
+.patrol_boat{
+background-color: orange;
+}
+.battleship{
+background-color: white;
+}
+.carrier{
+background-color: brown;
 }

@@ -9,6 +9,10 @@ function loadData() {
   $.get('/api/game_view/' + getParameterByName('gp'))
     .done(function (data) {
 
+
+
+
+
       var playerInfo;
       if (data.gamePlayers.length>1){
            if (data.gamePlayers[0].id == getParameterByName('gp'))
@@ -45,6 +49,21 @@ function loadData() {
           });
         }
       });
+
+        //Filtrado para player 1
+        var email1 = data.gamePlayers[0].player.email;
+        var filtrado_1 = data.salvoes.filter(function(salvo) {
+          return salvo.player == email1;
+        });
+        apppp.Myrecords = filtrado_1;
+
+        //Filtrado para player 2
+        var email2 = data.gamePlayers[1].player.email;
+        var filtrado_2 = data.salvoes.filter(function(salvo) {
+           return salvo.player == email2;
+        });
+        apppp.Opprecords = filtrado_2;
+
     })
     .fail(function (jqXHR, textStatus) {
       alert('Failed: ' + textStatus);
@@ -129,5 +148,15 @@ function fire(){
     }
 
 
+
+
+// VUE
+var apppp = new Vue({
+    el:"#apppp",
+    data:{
+  Myrecords: [],
+  Opprecords: []
+    }
+ })
 
 

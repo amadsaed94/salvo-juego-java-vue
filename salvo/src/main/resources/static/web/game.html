@@ -7,15 +7,60 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="css/sweetalert2.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body style="background-image: url('https://wallpaperaccess.com/full/948963.jpg');">
     <div class="container">
       <br><br>
+      <div id="app">
+
+        <h3 style="margin-left:30%; color:yellow">Your game  {{user.email}}  !</h3>
+
+      </div>
+      <br>
       <div style="font-size: 30px;  text-align: center; color: white ">
 
           <span id="playerInfo"></span>
       </div>
       <br><br>
+      <div id="apppp" class="row">
+
+        <div class="col">
+          <table class="table table-dark">
+            <tr>
+              <td>Turn</td>
+              <td>Player</td>
+              <td>Hits</td>
+              <td>Sunks</td>
+            </tr>
+            <tr v-for="x in Myrecords">
+              <td>{{x.turn}}</td>
+              <td>{{ x.player }}</td>
+              <td>{{ x.hits }}</td>
+              <td>{{ x.suncken.map(ship=>ship.shipType)}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col">
+          <table class="table table-dark">
+            <tr>
+              <td>Turn</td>
+              <td>Player</td>
+              <td>Hits</td>
+              <td>Sunks</td>
+            </tr>
+            <tr v-for="y in Opprecords">
+              <td>{{y.turn}}</td>
+              <td>{{ y.player }}</td>
+              <td>{{y.hits }}</td>
+              <td>{{ y.suncken.map(ship=>ship.shipType) }}</td>
+            </tr>
+          </table>
+
+        </div>
+
+      </div>
+      <br>
         <div class="row">
             <div class="col" >
                 <button  class="btn btn-primary btn-lg " onclick="volver()" >Go back  !</button>
@@ -162,6 +207,8 @@
         </div>
 
       </div>
+      <br>
+
 
     </div>
 
@@ -169,5 +216,7 @@
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/game.js"></script>
+ <script src="js/games.js"></script>
+
 </body>
 </html>

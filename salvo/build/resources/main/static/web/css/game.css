@@ -3,15 +3,15 @@ body{
 }
 
 .ship-piece{
-    background-color: darkslateblue;
+    background-color: blue;
 }
 
 .ship-piece-hited{
-    background-color: darkmagenta;
+    background-color: yellow;
 }
 
 .salvo{
-    background-color: crimson;
+    background-color: green;
 }
 .target{
 background-color: red ;
