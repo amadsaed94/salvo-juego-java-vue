@@ -10,9 +10,6 @@ function loadData() {
     .done(function (data) {
 
 
-
-
-
       var playerInfo;
       if (data.gamePlayers.length>1){
            if (data.gamePlayers[0].id == getParameterByName('gp'))
@@ -24,31 +21,53 @@ function loadData() {
       else{
             playerInfo=[data.gamePlayers[0].player]
            $('#playerInfo').text(playerInfo[0].email + '(you) vs ' + "waiting for other player..");
-      }
+          }
+          console.log(playerInfo);
+
+
 
       data.ships.forEach(function (shipPiece) {
         shipPiece.shipLocations.forEach(function (shipLocation) {
-          let turnHitted = isHit(shipLocation,data.salvoes,playerInfo[0].id)
+          let turnHitted = isHit(shipLocation,data.salvoes,playerInfo[0].email)
           if(turnHitted >0){
-            $('#B_' + shipLocation).addClass('ship-piece-hited');
+          $('#B_' + shipLocation).addClass(shipPiece.shipType);
+           // $('#B_' + shipLocation).addClass('ship-piece-hited');
             $('#B_' + shipLocation).text(turnHitted);
           }
           else
-            $('#B_' + shipLocation).addClass('ship-piece');
+            $('#B_' + shipLocation).addClass(shipPiece.shipType);
         });
       });
+
+/*
       data.salvoes.forEach(function (salvo) {
         console.log(salvo);
-        if (playerInfo[0].id === salvo.player) {
+        if (playerInfo[0].email === salvo.player) {
           salvo.salvoLocations.forEach(function (location) {
             $('#S_' + location).addClass('salvo');
           });
-        } else {
-          salvo.salvoLocations.forEach(function (location) {
-            $('#_' + location).addClass('salvo');
-          });
         }
       });
+*/
+      var allhits = data.salvoes.flatMap(hit=>hit.hits) ;
+      console.log(allhits);
+      var allsalvos = data.salvoes.flatMap(salvo=>salvo.salvoLocations);
+      console.log(allsalvos);
+      var notHits = allsalvos.filter(function(location){
+      return !allhits.includes(location);
+      });
+      console.log(notHits);
+
+       notHits.forEach(function(location){
+       $('#S_' + location).addClass('salvo');
+       });
+
+       allhits.forEach(function(location){
+       $('#S_' + location).addClass('hited');
+       });
+
+
+
 
         //Filtrado para player 1
         var email1 = data.gamePlayers[0].player.email;
@@ -57,6 +76,7 @@ function loadData() {
         });
         apppp.Myrecords = filtrado_1;
 
+
         //Filtrado para player 2
         var email2 = data.gamePlayers[1].player.email;
         var filtrado_2 = data.salvoes.filter(function(salvo) {
@@ -64,16 +84,18 @@ function loadData() {
         });
         apppp.Opprecords = filtrado_2;
 
+
+
     })
     .fail(function (jqXHR, textStatus) {
       alert('Failed: ' + textStatus);
     });
 }
 
-function isHit(shipLocation,salvoes,playerId) {
+function isHit(shipLocation,salvoes,playerEmail) {
   var hit = 0;
   salvoes.forEach(function (salvo) {
-    if(salvo.player != playerId)
+    if(salvo.player != playerEmail)
       salvo.salvoLocations.forEach(function (location) {
         if(shipLocation === location)
           hit = salvo.turn;

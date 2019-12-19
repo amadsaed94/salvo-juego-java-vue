@@ -1,14 +1,18 @@
 body{
  background-image: url("https://wallpaperaccess.com/full/948963.jpg");
 }
-.ship-piece-hited{
-    background-color: yellow;
+
+.hited{
+    background-image: url("foto.PNG");
+    background-size: 100% 100%;
 }
 
-}
+
 .salvo{
-    background-color: green;
+background-image: url("foto2.PNG");
+    background-size: 100% 100%;
 }
+
 .target{
 background-color: red ;
 }

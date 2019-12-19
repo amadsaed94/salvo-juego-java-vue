@@ -12,6 +12,30 @@
 
 <div id="app">
     <br>
+    <div v-if="user !='Guest'">
+        <h3 style="margin-left:30%; color:white">Welcome {{user.email}} :</h3>
+        <br>
+        <div class="row">
+            <div class="col"><input type="button" style="margin-left:80%" class="btn btn-success"  @click="createGame()" value="creatGame"></div>
+            <div class="col"><input type="button" class="btn btn-success"  @click="logout()" value="Logout"></div>
+        </div>
+
+    </div>
+
+    <div v-if="user =='Guest'">
+        <label ><h3>Name:</h3></label>
+        <input class="form-control" v-model="username" id="username"type="email" name="username" required>
+        <br>
+        <label><h3>Password:</h3> </label>
+        <input class="form-control" v-model="password" id="password"type="password" name="password" required>
+        <br>
+        <div class="row">
+            <div class="col"><input type="button" style="margin-left:80%" class="btn btn-success" @click="login(1)" value="Login"></div>
+            <div class="col"><input type="button" class="btn btn-success" @click="signup()" value="Sign Up"></div>
+        </div>
+
+    </div>
+    <br><br>
   <table class="table table-dark">
     <tr>
      <th colspan="5"> <h2>Leaderboard</h2></th>
@@ -45,27 +69,7 @@
         <td v-if="user !='Guest'&& x.gamePlayers.length == 1 && user.email != x.gamePlayers[0].player.email"><button class="btn btn-warning" @click="joinGame(x.id)" >Join Game</button></td>
       </tr>
     </table>
-      <br><br>
 
-    <div v-if="user !='Guest'">
-       <h3 style="margin-left:30%; color:white">Welcome {{user.email}} :</h3>
-    <br>
-       <input type="button" class="form-control btn btn-info btn-light"  @click="createGame()" value="creatGame">
-    <br><br>
-       <input type="button" class="form-control btn btn-info btn-light"  @click="logout()" value="Logout">
-    </div>
-
-    <div v-if="user =='Guest'">
-        <label ><h3>Name:</h3></label>
-        <input class="form-control" v-model="username" id="username"type="email" name="username" required>
-     <br>
-        <label><h3>Password:</h3> </label>
-        <input class="form-control" v-model="password" id="password"type="password" name="password" required>
-     <br>
-        <input type="button" class="form-control btn btn-info btn-light" @click="login(1)" value="Login">
-     <br><br>
-        <input type="button" class="form-control btn btn-info btn-light" @click="signup()" value="Sign Up">
-   </div>
     <br><br>
 </div>
 
